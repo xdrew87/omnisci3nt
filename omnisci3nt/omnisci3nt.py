@@ -32,7 +32,6 @@ from .modules.dirtest import start_scan
 from .modules.portscan import ps
 from .modules.admin_finder import find_admin_panels
 from .modules.vuln_scanner import run_vuln_scanner
-from .modules.urlscan import run_urlscan
 
 base_dir = os.path.dirname(os.path.abspath(__file__))
 
@@ -516,7 +515,6 @@ def run_all(domain):
     run_port_scan(domain)
     find_admin_panels_on_domain(domain)
     run_vuln_scanner(domain)
-    run_urlscan(domain)
     run_all_completed(output_filename)
 
 
@@ -604,9 +602,6 @@ def handle_args():
     parser.add_argument("-admin", action="store_true", help="Find admin panels")
     parser.add_argument("-all", action="store_true", help="Run all modules")
     parser.add_argument("-vulnscan", action="store_true", help="Run vulnerability scanner")
-    parser.add_argument(
-        "-urlscan", action="store_true", help="Search urlscan.io results"
-    )
     return parser.parse_args()
 
 
@@ -675,8 +670,6 @@ def main():
             find_admin_panels_on_domain(domain)
         if args.vulnscan:
             run_vuln_scanner(domain)
-        if args.urlscan:
-            run_urlscan(domain)
 
     print_recon_completed_banner()
 
