@@ -2,7 +2,6 @@
 
 import requests
 import os
-import json
 
 R = "\033[31m"  # red
 G = "\033[32m"  # green
@@ -115,12 +114,10 @@ def run_urlscan(domain):
             ip_address = page.get("ip", "N/A")
             scan_data["ip_address"] = ip_address
 
-            # ASN information
+            # ASN information — urlscan.io returns asn and asnname as strings
             asn = page.get("asn", "N/A")
-            if asn:
-                asn_str = f"{asn.get('asnum', 'N/A')} ({asn.get('name', 'N/A')})"
-            else:
-                asn_str = "N/A"
+            asnname = page.get("asnname", "")
+            asn_str = f"{asn} ({asnname})" if asnname else asn
             scan_data["asn"] = asn_str
 
             # Country information
